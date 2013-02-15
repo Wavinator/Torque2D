@@ -1,0 +1,10 @@
+<ModuleDefinition
+	ModuleId="MyFirstToy"
+	VersionId="1"
+	Description="A test at creating a sandbox module toy."
+	Dependencies="ToyAssets=1"
+	Type="toy"
+	ToyCategoryIndex="3"
+	ScriptFile="main.cs"
+	CreateFunction="create"
+	DestroyFunction="destroy"/>
