@@ -23,16 +23,8 @@
 #ifndef _SPRITE_BATCH_ITEM_H_
 #define _SPRITE_BATCH_ITEM_H_
 
-#ifndef _SPRITE_PROXY_BASE_H_
-#include "2d/core/SpriteProxyBase.h"
-#endif
-
-#ifndef _SIM_OBJECT_PTR_H_
-#include "sim/simObjectPtr.h"
-#endif
-
-#ifndef _FACTORY_CACHE_H_
-#include "memory/factoryCache.h"
+#ifndef _IMAGE_FRAME_PROVIDER_H
+#include "2d/core/imageFrameProvider.h"
 #endif
 
 //------------------------------------------------------------------------------  
@@ -42,11 +34,15 @@ class SceneRenderRequest;
 
 //------------------------------------------------------------------------------  
 
-class SpriteBatchItem : public SpriteProxyBase
+extern StringTableEntry spritesItemTypeName;
+
+//------------------------------------------------------------------------------  
+
+class SpriteBatchItem : public ImageFrameProvider
 {
     friend class SpriteBatch;
 
-    typedef SpriteProxyBase Parent;
+    typedef ImageFrameProvider Parent;
 
 public:
     // Represents a logical position.
@@ -298,6 +294,8 @@ public:
     void prepareRender( SceneRenderRequest* pSceneRenderRequest, const U32 batchTransformId );
     void render( BatchRender* pBatchRenderer, const SceneRenderRequest* pSceneRenderRequest, const U32 batchTransformId );
 
+    static void WriteCustomTamlSchema( const AbstractClassRep* pClassRep, TiXmlElement* pParentElement );
+
 protected:
     void setBatchParent( SpriteBatch* pSpriteBatch, const U32 batchId );
     inline void setProxyId( const S32 proxyId ) { mProxyId = proxyId; }
@@ -305,7 +303,7 @@ protected:
     void updateLocalTransform( void );
     void updateWorldTransform( const U32 batchTransformId );
 
-    void onTamlCustomWrite( TamlCustomNode* pSpriteNode );
+    void onTamlCustomWrite( TamlCustomNode* pParentNode );
     void onTamlCustomRead( const TamlCustomNode* pSpriteNode );
 };
 
